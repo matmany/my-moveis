@@ -7,6 +7,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDbContext<AppDbContext>(
+    d => d.UseNpgsql(
+        builder.Configuration.GetConnectionString("db"),
+        option => option.MigrationsHistoryTable("__efmigrationshistory", "public")));
+
+//var startup = new Startup(builder.Configuration, builder.Environment);
+//startup.ConfigureServices(builder.Services);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
