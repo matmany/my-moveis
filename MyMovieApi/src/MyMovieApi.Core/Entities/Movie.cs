@@ -8,5 +8,8 @@ namespace MyMovieApi.Core.Entities
         public string Synopsis {get; set; }
         public string ApprovalRating{get; set; }
         public string DataOrigin { get; set; }
+
+        //Relations
+        public IList<UserMovie> UserMovies { get; set; }
     }
 }

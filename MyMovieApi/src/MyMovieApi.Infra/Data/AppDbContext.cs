@@ -11,6 +11,7 @@ namespace MyMovieApi.Infra.Data
 
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Movie> Movies { get; set; }
+        public virtual DbSet<UserMovie> UserMovies { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder
         .UseNpgsql()
