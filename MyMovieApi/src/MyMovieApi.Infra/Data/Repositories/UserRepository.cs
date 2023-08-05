@@ -1,9 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using MyMovieApi.Core.Entities;
+using MyMovieApi.Core.Interfaces;
 
 namespace MyMovieApi.Infra.Data.Repositories
 {
-    public class UserRepository : BaseRepository<User>
+    public class UserRepository : BaseRepository<User>, IUserRepository
     {
         private readonly AppDbContext _dbContext;
 
@@ -12,7 +13,7 @@ namespace MyMovieApi.Infra.Data.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<User> GetByEmailAndPass(string email, string password)
+        public async Task<User> GetByEmailAndPassAsync(string email, string password)
         {
             var query = _dbContext.Users.Where(u => u.Email == email && u.Password == password);
             return await query.FirstOrDefaultAsync();
