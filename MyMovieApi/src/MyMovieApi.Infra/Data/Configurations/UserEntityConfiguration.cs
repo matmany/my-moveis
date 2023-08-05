@@ -4,7 +4,7 @@ using MyMovieApi.Core.Entities;
 
 namespace MyMovieApi.Infra.Data.Configurations
 {
-    public class UserModelConfiguration : IEntityTypeConfiguration<User>
+    public class UserEntityConfiguration : IEntityTypeConfiguration<User>
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
