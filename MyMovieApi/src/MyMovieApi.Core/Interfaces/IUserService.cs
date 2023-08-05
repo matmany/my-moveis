@@ -4,6 +4,6 @@ namespace MyMovieApi.Core.Interfaces
 {
     public interface IUserService
     {
-        Task<User> GetVerifiedUserOrFail(string email, string password);
+        Task<User> GetVerifiedUserOrFailAsync(string email, string password);
     }
 }

@@ -21,9 +21,11 @@ namespace MyMovieApi.Core.Handlers
         {
             var result = new Result<LoginResponse>();
 
-            //Validação da request
+            //TODO: Validação da request
+
+            
             try{
-                var user = _userService.GetVerifiedUserOrFail(request.Email, request.Password);
+                var user = await _userService.GetVerifiedUserOrFailAsync(request.Email, request.Password);
                 var token = _authService.GenerateToken(user);
                 result.Value = new LoginResponse()
                 {

@@ -12,9 +12,9 @@ namespace MyMovieApi.Core.Services
         {
             _repository = repository;
         }
-        public async Task<User> GetVerifiedUserOrFail(string email, string password)
+        public async Task<User> GetVerifiedUserOrFailAsync(string email, string password)
         {
-            var user = await _repository.GetByEmailAndPassAsync(email, password) ?? throw new ArgumentNullException(UserEnum.EmailOrPasswordIncorret.GetDescription());
+            var user = await _repository.GetByEmailAndPassAsync(email, password) ?? throw new ArgumentException(UserEnum.EmailOrPasswordIncorret.GetDescription());
             return user;
         }
     }

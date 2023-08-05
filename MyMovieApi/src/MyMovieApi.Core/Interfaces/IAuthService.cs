@@ -1,7 +1,9 @@
+using MyMovieApi.Core.Entities;
+
 namespace MyMovieApi.Core.Interfaces
 {
     public interface IAuthService
     {
-        string GenerateToken(object user);
+        string GenerateToken(User user);
     }
 }

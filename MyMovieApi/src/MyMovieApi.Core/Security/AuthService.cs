@@ -6,11 +6,12 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using MyMovieApi.Core.Helper;
+using MyMovieApi.Core.Interfaces;
 
 namespace MyMovieApi.Core.Security
 {
 
-    public class AuthService
+    public class AuthService: IAuthService
     {
         private readonly string _key;
         public AuthService(IConfiguration configuration)
