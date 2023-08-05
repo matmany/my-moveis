@@ -3,6 +3,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using MyMovieApi.Core.Handlers;
+using MyMovieApi.Core.Services;
+using MyMovieApi.Core.Interfaces;
+using MyMovieApi.Infra.Data.Repositories;
+using MyMovieApi.Core.Security;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -36,8 +41,10 @@ builder.Services.AddDbContext<AppDbContext>(
         builder.Configuration.GetConnectionString("db"),
         option => option.MigrationsHistoryTable("__efmigrationshistory", "public")));
 
-//var startup = new Startup(builder.Configuration, builder.Environment);
-//startup.ConfigureServices(builder.Services);
+builder.Services.AddScoped<AuthHandler>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();
 
