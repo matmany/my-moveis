@@ -10,6 +10,7 @@ namespace MyMovieApi.Infra.Data
         public AppDbContext (DbContextOptions<AppDbContext> options): base(options) {}
 
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Movie> Movies { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder
         .UseNpgsql()
