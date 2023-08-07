@@ -2,6 +2,7 @@ using MyMovieApi.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using MyMovieApi.Core.Entities;
+using System.Linq.Expressions;
 
 namespace MyMovieApi.Infra.Data.Repositories
 {
@@ -41,9 +42,18 @@ namespace MyMovieApi.Infra.Data.Repositories
             return await _dbContext.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<TEntity> GetByIdAsync(long id, params Expression<Func<TEntity, object>>[] includes)
+        {
+            var query = _dbContext.Set<TEntity>().AsQueryable();
+            query = GetWithIncludes(query, includes);
+            query = query.Where(e => e.Id == id);
+            return await query.AsNoTracking().SingleOrDefaultAsync();
+        }
+
+
         public async Task<bool> UpdateAsync(TEntity entity)
         {
-             try
+            try
             {
                 _dbContext.Update(entity);
                 var result = await _dbContext.SaveChangesAsync();
@@ -53,6 +63,17 @@ namespace MyMovieApi.Infra.Data.Repositories
             {
                 return false;
             }
+        }
+
+        private IQueryable<TEntity> GetWithIncludes(IQueryable<TEntity> query, params Expression<Func<TEntity, object>>[] includes)
+        {
+            if (includes.Any())
+            {
+                query = includes.Aggregate(query,
+                    (current, include) => current.Include(include));
+            }
+
+            return query;
         }
     }
 }
