@@ -11,12 +11,16 @@ using MyMovieApi.Core.Interfaces;
 namespace MyMovieApi.Core.Security
 {
 
-    public class AuthService: IAuthService
+    public class AuthService : IAuthService
     {
         private readonly string _key;
+        private readonly string _issuer;
+        private readonly string _audience;
         public AuthService(IConfiguration configuration)
         {
             _key = SettingsConfigurationHelper.GetValue("JwtSettings:Key", configuration);
+            _issuer = SettingsConfigurationHelper.GetValue("JwtSettings:Issuer", configuration);
+            _audience = SettingsConfigurationHelper.GetValue("JwtSettings:Audience", configuration);
         }
         public string GenerateToken(User user)
         {
@@ -24,6 +28,8 @@ namespace MyMovieApi.Core.Security
             var key = Encoding.ASCII.GetBytes(_key);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
+                Issuer = _issuer,
+                Audience = _audience,
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Name, user.NickName.ToString()),

@@ -1,6 +1,5 @@
 using MyMovieApi.Core.Helper;
 using MyMovieApi.Core.Interfaces;
-using MyMovieApi.Core.Models;
 using MyMovieApi.Core.Models.Requests;
 using MyMovieApi.Core.Models.Response;
 using Serilog;
@@ -23,14 +22,15 @@ namespace MyMovieApi.Core.Handlers
 
             //TODO: Validação da request
 
-            
-            try{
+
+            try
+            {
                 var user = await _userService.GetVerifiedUserOrFailAsync(request.Email, request.Password);
                 var token = _authService.GenerateToken(user);
                 result.Value = new LoginResponse()
                 {
-                    UserId  = user.Id,
-                    Token   = token 
+                    UserId = user.Id,
+                    Token = token
                 };
             }
             catch (Exception ex)
@@ -38,7 +38,7 @@ namespace MyMovieApi.Core.Handlers
                 Log.Error(ex, "<{EventoId}> - Falha ao completar login", this.GetType().Name);
                 result.WithError(ex.Message);
             }
-            
+
             return result;
         }
     }

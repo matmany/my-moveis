@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyMovieApi.Core.Handlers;
-using MyMovieApi.Core.Helper;
 using MyMovieApi.Core.Models.Requests;
 using MyMovieApi.Core.Models.Response;
 
@@ -18,7 +17,7 @@ namespace MyMovieApi.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost("login")]
-        public async Task<ActionResult<dynamic>> Login([FromBody]LoginRequest request)
+        public async Task<ActionResult<LoginResponse>> Login([FromBody] LoginRequest request)
         {
             var response = await _authHandler.Login(request);
             return Ok(response);
