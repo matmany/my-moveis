@@ -37,16 +37,8 @@ namespace MyMovieApi.Core.Services
             return await _repository.AddAsync(user);
         }
 
-        public async Task<UserMovie> AddMovie(User user, Movie request, UserMovie userMovie)
+        public async Task<UserMovie> AddMovie(UserMovie userMovie)
         {
-            if (request.Id <= 0)
-            {
-                await AddNewMovie(request, userMovie);
-                return userMovie;
-            }
-
-            userMovie.MovieId = request.Id;
-
             await _repository.AddMovieAsync(userMovie);
             return userMovie;
         }

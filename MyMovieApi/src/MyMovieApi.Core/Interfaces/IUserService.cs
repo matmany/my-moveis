@@ -9,6 +9,6 @@ namespace MyMovieApi.Core.Interfaces
         Task<User> GetByIdOrFailAsync(long id);
         Task<User> GetByIdOrFailAsync(long id, params Expression<Func<User, object>>[] includes);
         Task<User> AddAsync(User user);
-        Task<UserMovie> AddMovie(User user, Movie request, UserMovie newUserMovie);
+        Task<UserMovie> AddMovie(UserMovie newUserMovie);
     }
 }

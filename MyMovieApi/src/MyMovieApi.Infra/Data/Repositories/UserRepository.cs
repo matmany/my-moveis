@@ -31,10 +31,11 @@ namespace MyMovieApi.Infra.Data.Repositories
             await using var trans = await _dbContext.Database.BeginTransactionAsync();
             try
             {
-                await _dbContext.Movies.AddAsync(newMovie);
-                await _dbContext.SaveChangesAsync();
+                //await _dbContext.Movies.AddAsync(newMovie);
+                //await _dbContext.SaveChangesAsync();
+                //userMovie.MovieId = newMovie.Id;
 
-                userMovie.MovieId = newMovie.Id;
+                userMovie.Movie = newMovie;
                 await _dbContext.UserMovies.AddAsync(userMovie);
                 await _dbContext.SaveChangesAsync();
 

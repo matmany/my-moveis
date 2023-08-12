@@ -42,5 +42,11 @@ namespace MyMovieApi.Core.Services
             var movie = await GetByIdAsync(id) ?? throw new ArgumentException(MovieEnum.NotFound.GetDescription());
             return movie;
         }
+
+        public async Task<Movie> GetByIdOrDefaultAsync(long? id)
+        {
+            return id.HasValue ? await GetByIdAsync(id.Value) : null;
+            //return await GetByIdAsync(id.Value) ?? null;
+        }
     }
 }

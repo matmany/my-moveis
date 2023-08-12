@@ -8,6 +8,7 @@ namespace MyMovieApi.Core.Interfaces
         Task<bool> UpdateAsync(Movie movie);
         Task<Movie> GetByIdAsync(long id);
         Task<Movie> GetByIdOrFailAsync(long id);
+        Task<Movie> GetByIdOrDefaultAsync(long? id);
         Task<IList<Movie>> GetAll();
 
     }

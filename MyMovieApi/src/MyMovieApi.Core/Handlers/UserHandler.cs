@@ -33,9 +33,13 @@ namespace MyMovieApi.Core.Handlers
             try
             {
                 var user = await _userService.GetByIdOrFailAsync(userId, u => u.UserMovies);
-                var movie = _mapper.Map<Movie>(request);
-                var userMovie = _mapper.Map<UserMovie>(request);
-                await _userService.AddMovie(user, movie, userMovie);
+                var movie = await _moveService.GetByIdOrDefaultAsync(request.MovieId) ?? _mapper.Map<Movie>(request);
+                var newUserMovie = _mapper.Map<UserMovie>(request);
+
+                newUserMovie.Movie = movie;
+
+                await _userService.AddMovie(newUserMovie);
+
                 result.Value = new BaseResponse()
                 {
                     Message = UserEnum.MovieAdded.GetDescription()
